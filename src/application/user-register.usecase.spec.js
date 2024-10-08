@@ -1,3 +1,4 @@
+const AppError = require('../shared/errors/AppError');
 const userRegisterUseCase = require('./user-register.usecase');
 
 describe('userRegisterUseCase', () => {
@@ -23,6 +24,6 @@ describe('userRegisterUseCase', () => {
   });
 
   it('should return a throw error if user repositiry not provider', async () => {
-    expect(() => userRegisterUseCase({})).toThrow('UserRepository is required');
+    expect(() => userRegisterUseCase({})).toThrow(new AppError(AppError.dependencyError));
   });
 });
