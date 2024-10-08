@@ -34,8 +34,8 @@
 
 ## Estruturas
 
-### UsuariosRepository
-- [ ] cadastrar: ({nome_completo, CPF, telefone, endereco, email}) => Promise<void>
+### userRepository
+- [ ] register: ({name, cpf, phone, address, email}) => Promise<void>
 - [ ] buscarPorCPF: (CPF) => Promise<Usuario | null>
 - [ ] e istePorCPF: (CPF) => Promise<boolean>
 - [ ] e istePorEmail: (email) => Promise<boolean>
