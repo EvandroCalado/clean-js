@@ -1,3 +1,4 @@
+const { Either } = require('../shared/errors');
 const AppError = require('../shared/errors/AppError');
 
 module.exports = function userRegisterUseCase({ userRepository }) {
@@ -16,10 +17,10 @@ module.exports = function userRegisterUseCase({ userRepository }) {
 
     const cpfExists = await userRepository.findByCpf(cpf);
 
-    if (cpfExists) {
-      throw new AppError('CPF already exists');
-    }
+    if (cpfExists) return Either.left(Either.valueRegistered(cpf));
 
     await userRepository.register({ name, cpf, phone, address, email });
+
+    return Either.right(null);
   };
 };
