@@ -14,6 +14,12 @@ module.exports = function userRegisterUseCase({ userRepository }) {
       }
     }
 
+    const cpfExists = await userRepository.findByCpf(cpf);
+
+    if (cpfExists) {
+      throw new AppError('CPF already exists');
+    }
+
     await userRepository.register({ name, cpf, phone, address, email });
   };
 };
