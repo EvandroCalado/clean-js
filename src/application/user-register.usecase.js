@@ -1,5 +1,4 @@
-const { Either } = require('../shared/errors');
-const AppError = require('../shared/errors/AppError');
+const { Either, AppError } = require('../shared/errors');
 
 module.exports = function userRegisterUseCase({ userRepository }) {
   if (!userRepository) {
@@ -17,7 +16,11 @@ module.exports = function userRegisterUseCase({ userRepository }) {
 
     const cpfExists = await userRepository.findByCpf(cpf);
 
-    if (cpfExists) return Either.left(Either.valueRegistered(cpf));
+    if (cpfExists) return Either.left(Either.valueRegistered('CPF'));
+
+    const emailExists = await userRepository.findByEmail(email);
+
+    if (emailExists) return Either.left(Either.valueRegistered('Email'));
 
     await userRepository.register({ name, cpf, phone, address, email });
 
