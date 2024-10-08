@@ -1,3 +1,4 @@
+const { Either } = require('../shared/errors');
 const AppError = require('../shared/errors/AppError');
 const userRegisterUseCase = require('./user-register.usecase');
 
@@ -19,7 +20,7 @@ describe('userRegisterUseCase', () => {
     const sut = userRegisterUseCase({ userRepository });
     const output = await sut(userDTO);
 
-    expect(output).toBeUndefined();
+    expect(output.right).toBeNull();
     expect(userRepository.register).toHaveBeenCalledWith(userDTO);
     expect(userRepository.register).toHaveBeenCalledTimes(1);
   });
@@ -34,7 +35,7 @@ describe('userRegisterUseCase', () => {
     await expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
   });
 
-  it('should return a throw error if exists cpf registered', () => {
+  it('should return a throw error if exists cpf registered', async () => {
     userRepository.findByCpf.mockResolvedValue(true);
 
     const userDTO = {
@@ -46,7 +47,11 @@ describe('userRegisterUseCase', () => {
     };
 
     const sut = userRegisterUseCase({ userRepository });
+    const output = await sut(userDTO);
 
-    expect(() => sut(userDTO)).rejects.toThrow(new AppError('CPF already exists'));
+    expect(output.right).toBeNull();
+    expect(output.left).toEqual(Either.valueRegistered(userDTO.cpf));
+    expect(userRepository.findByCpf).toHaveBeenCalledWith(userDTO.cpf);
+    expect(userRepository.findByCpf).toHaveBeenCalledTimes(1);
   });
 });
