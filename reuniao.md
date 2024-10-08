@@ -10,7 +10,7 @@
 
 ### UseCases (Regras de negócio)
 - [x] Cadastrar um novo usuário
-- [ ] CPF ou email devem ser únicos
+- [x] CPF ou email devem ser únicos
 
 - [ ] Buscar um cadastro de usuário por CPF
 - [ ] Retornar um usuário ou vazio
@@ -35,8 +35,9 @@
 ## Estruturas
 
 ### userRepository
-- [ ] register: ({name, cpf, phone, address, email}) => Promise<void>
-- [ ] buscarPorCPF: (CPF) => Promise<Usuario | null>
+- [x] register: ({name, cpf, phone, address, email}) => Promise<void>
+- [x] findByCpf: (cpf) => Promise<User | null>
+- [x] findByEmail: (email) => Promise<User | null>
 - [ ] e istePorCPF: (CPF) => Promise<boolean>
 - [ ] e istePorEmail: (email) => Promise<boolean>
 
