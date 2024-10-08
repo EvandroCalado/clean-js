@@ -21,4 +21,8 @@ describe('userRegisterUseCase', () => {
     expect(userRepository.register).toHaveBeenCalledWith(userDTO);
     expect(userRepository.register).toHaveBeenCalledTimes(1);
   });
+
+  it('should return a throw error if user repositiry not provider', async () => {
+    expect(() => userRegisterUseCase({})).toThrow('UserRepository is required');
+  });
 });
