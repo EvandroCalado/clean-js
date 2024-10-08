@@ -23,7 +23,13 @@ describe('userRegisterUseCase', () => {
     expect(userRepository.register).toHaveBeenCalledTimes(1);
   });
 
-  it('should return a throw error if user repositiry not provider', async () => {
+  it('should return a throw error if user repositiry not provider', () => {
     expect(() => userRegisterUseCase({})).toThrow(new AppError(AppError.dependencyError));
+  });
+
+  it('should return a throw error if missing params', async () => {
+    const sut = userRegisterUseCase({ userRepository });
+
+    await expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
   });
 });
