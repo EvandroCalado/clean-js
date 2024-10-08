@@ -5,4 +5,5 @@ module.exports = class AppError extends Error {
   }
 
   static dependencyError = 'Dependency is required';
+  static missingParamsError = 'Params is required';
 };
