@@ -1,3 +1,4 @@
+const { AppError } = require('../shared/errors');
 const bookRegisterUseCase = require('./book-register.usecase');
 
 describe('bookRegisterUseCase', () => {
@@ -20,5 +21,15 @@ describe('bookRegisterUseCase', () => {
     expect(output.right).toBeNull();
     expect(bookRepository.register).toHaveBeenCalledWith(bookDTO);
     expect(bookRepository.register).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return a throw AppError if book repositiry not provider', () => {
+    expect(() => bookRegisterUseCase({})).toThrow(new AppError(AppError.dependencyError));
+  });
+
+  it('should return a throw AppError if book missing params', async () => {
+    const sut = bookRegisterUseCase({ bookRepository });
+
+    await expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
   });
 });
