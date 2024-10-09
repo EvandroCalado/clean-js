@@ -27,4 +27,19 @@ describe('findUserByCpfUseCase', () => {
     expect(userRepository.findByCpf).toHaveBeenCalledWith(cpfDTO.cpf);
     expect(userRepository.findByCpf).toHaveBeenCalledTimes(1);
   });
+
+  it('should return null if cpf is not registered', async () => {
+    userRepository.findByCpf.mockResolvedValue(null);
+
+    const cpfDTO = {
+      cpf: 'invalid_cpf',
+    };
+
+    const sut = findUserByCpfUseCase({ userRepository });
+    const output = await sut(cpfDTO);
+
+    expect(output.right).toBeNull();
+    expect(userRepository.findByCpf).toHaveBeenCalledWith(cpfDTO.cpf);
+    expect(userRepository.findByCpf).toHaveBeenCalledTimes(1);
+  });
 });
