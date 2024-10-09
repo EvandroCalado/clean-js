@@ -18,8 +18,8 @@
 - [x] Cadastrar um novo livro
 - [x] Isbn deve ser único
 
-- [ ] Buscar um livro por nome ou ISBN
-- [ ] Retornar os livros ou vazio
+- [x] Buscar um livro por nome ou ISBN
+- [x] Retornar os livros ou vazio
 
 - [ ] Emprestar um livro ao usuario
 - [ ] A data de retorno não pode ser menor que a data de saída
@@ -44,7 +44,7 @@
 ### bookRepository
 - [x] register: ({ nome, quantidade, autor, genero, isbn}) => Promise<void>
 - [x] fingByIsbn: (isbn) => Promise<boolean>
-- [ ] buscarPorNomeOuISBN: (valor) => Promise<array<Livro>>
+- [x] findBookByNameOrIsbn: (valor) => Promise<array<book>>
 
 ### EmprestimosRepository
 - [ ] emprestar: ({ livro_id, usuario_id, data_saida, data_retorno }) => Promise<void>

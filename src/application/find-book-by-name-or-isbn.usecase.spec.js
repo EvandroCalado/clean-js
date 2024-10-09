@@ -48,4 +48,10 @@ describe('findBookByNameOrIsbnUseCase', () => {
   it('should return a throw AppError if book repository not provider', () => {
     expect(() => findBookByNameOrIsbnUseCase({})).toThrow(new AppError(AppError.dependencyError));
   });
+
+  it('should return a throw AppError if required field not provider', () => {
+    const sut = findBookByNameOrIsbnUseCase({ bookRepository });
+
+    expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
+  });
 });
