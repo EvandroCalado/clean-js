@@ -6,6 +6,10 @@ module.exports = function findUserByCpfUseCase({ userRepository }) {
   }
 
   return async function ({ cpf }) {
+    if (!cpf) {
+      throw new AppError(AppError.missingParamsError);
+    }
+
     const user = await userRepository.findByCpf(cpf);
 
     return Either.right(user);
