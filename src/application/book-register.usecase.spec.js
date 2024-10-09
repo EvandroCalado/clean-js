@@ -1,9 +1,10 @@
-const { AppError } = require('../shared/errors');
+const { AppError, Either } = require('../shared/errors');
 const bookRegisterUseCase = require('./book-register.usecase');
 
 describe('bookRegisterUseCase', () => {
   const bookRepository = {
     register: jest.fn(),
+    findByIsbn: jest.fn(),
   };
 
   it('should register a book', async () => {
@@ -31,5 +32,24 @@ describe('bookRegisterUseCase', () => {
     const sut = bookRegisterUseCase({ bookRepository });
 
     await expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
+  });
+
+  it('should return a Either.left if exists isbn registered', async () => {
+    bookRepository.findByIsbn.mockResolvedValue(true);
+
+    const bookDTO = {
+      name: 'valid_name',
+      quantity: 'valid_quantity',
+      author: 'valid_author',
+      genre: 'valid_genre',
+      isbn: 'registered_isbn',
+    };
+
+    const sut = bookRegisterUseCase({ bookRepository });
+    const output = await sut(bookDTO);
+
+    expect(output.left).toEqual(Either.valueRegistered('isbn'));
+    expect(bookRepository.findByIsbn).toHaveBeenCalledWith(bookDTO.isbn);
+    expect(bookRepository.findByIsbn).toHaveBeenCalledTimes(1);
   });
 });
