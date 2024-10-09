@@ -16,7 +16,7 @@
 - [x] Retornar um usuário ou vazio
 
 - [x] Cadastrar um novo livro
-- [ ] ISBN deve ser único
+- [x] Isbn deve ser único
 
 - [ ] Buscar um livro por nome ou ISBN
 - [ ] Retornar os livros ou vazio
@@ -43,7 +43,7 @@
 
 ### bookRepository
 - [x] register: ({ nome, quantidade, autor, genero, isbn}) => Promise<void>
-- [ ] e istePorISBN: (ISBN) => Promise<boolean>
+- [x] fingByIsbn: (isbn) => Promise<boolean>
 - [ ] buscarPorNomeOuISBN: (valor) => Promise<array<Livro>>
 
 ### EmprestimosRepository
