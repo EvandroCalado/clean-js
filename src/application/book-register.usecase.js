@@ -12,6 +12,10 @@ module.exports = function bookRegisterUseCase({ bookRepository }) {
       }
     }
 
+    const isbnExists = await bookRepository.findByIsbn(isbn);
+
+    if (isbnExists) return Either.left(Either.valueRegistered('isbn'));
+
     await bookRepository.register({ name, quantity, author, genre, isbn });
 
     return Either.right(null);
