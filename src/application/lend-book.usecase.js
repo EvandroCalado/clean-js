@@ -11,13 +11,13 @@ module.exports = function lendBookUseCase({ lendRepository }) {
     }
 
     if (outDate.getTime() > returnDate.getTime()) {
-      return Either.left(Either.returnDateInvalid());
+      return Either.left(Either.returnDateInvalid);
     }
 
     const userHasBookWithSameIsbn = await lendRepository.userHasBookWithSameIsbn({ useId, bookId });
 
     if (userHasBookWithSameIsbn) {
-      return Either.left(Either.userHasBookWithSameIsbn());
+      return Either.left(Either.userHasBookWithSameIsbn);
     }
 
     await lendRepository.lend({ useId, bookId, outDate, returnDate });

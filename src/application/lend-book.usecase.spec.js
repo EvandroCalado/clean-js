@@ -34,6 +34,6 @@ describe('lendBookUseCase', () => {
     const sut = lendBookUsecase({ lendRepository });
     const output = await sut(lendBookDTO);
 
-    expect(output.left).toEqual(Either.returnDateInvalid());
+    expect(output.left).toEqual(Either.returnDateInvalid);
   });
 });
