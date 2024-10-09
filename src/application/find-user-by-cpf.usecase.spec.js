@@ -47,4 +47,10 @@ describe('findUserByCpfUseCase', () => {
   it('should return a throw error if user repositiry not provider', () => {
     expect(() => findUserByCpfUseCase({})).toThrow(new AppError(AppError.dependencyError));
   });
+
+  it('should return a throw error if cpf is not provided', async () => {
+    const sut = findUserByCpfUseCase({ userRepository });
+
+    await expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
+  });
 });
