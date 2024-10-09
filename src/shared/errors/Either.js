@@ -19,4 +19,12 @@ module.exports = class Either {
   static valueRegistered(value) {
     return { message: `${value} already registered` };
   }
+
+  static returnDateInvalid() {
+    return { message: 'Return date must be greater than out date' };
+  }
+
+  static userHasBookWithSameIsbn() {
+    return { message: 'User has book with same ISBN' };
+  }
 };
