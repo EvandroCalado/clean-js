@@ -1,3 +1,4 @@
+const { AppError } = require('../shared/errors');
 const findUserByCpfUseCase = require('./find-user-by-cpf.usecase');
 
 describe('findUserByCpfUseCase', () => {
@@ -41,5 +42,9 @@ describe('findUserByCpfUseCase', () => {
     expect(output.right).toBeNull();
     expect(userRepository.findByCpf).toHaveBeenCalledWith(cpfDTO.cpf);
     expect(userRepository.findByCpf).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return a throw error if user repositiry not provider', () => {
+    expect(() => findUserByCpfUseCase({})).toThrow(new AppError(AppError.dependencyError));
   });
 });
