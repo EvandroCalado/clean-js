@@ -36,4 +36,25 @@ describe('lendBookUseCase', () => {
 
     expect(output.left).toEqual(Either.returnDateInvalid);
   });
+
+  it('should a Either.left if user try lend a book with same ISBN as the one he already has', async () => {
+    lendRepository.userHasBookWithSameIsbn.mockResolvedValue(true);
+
+    const lendBookDTO = {
+      useId: 'valid_useId',
+      bookId: 'valid_BookId',
+      outDate: new Date('2024-10-09'),
+      returnDate: new Date('2024-10-09'),
+    };
+
+    const sut = lendBookUsecase({ lendRepository });
+    const output = await sut(lendBookDTO);
+
+    expect(output.left).toEqual(Either.userHasBookWithSameIsbn);
+    expect(lendRepository.userHasBookWithSameIsbn).toHaveBeenCalledWith({
+      useId: lendBookDTO.useId,
+      bookId: lendBookDTO.bookId,
+    });
+    expect(lendRepository.userHasBookWithSameIsbn).toHaveBeenCalledTimes(1);
+  });
 });
