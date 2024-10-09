@@ -46,8 +46,8 @@
 - [x] fingByIsbn: (isbn) => Promise<boolean>
 - [x] findBookByNameOrIsbn: (valor) => Promise<array<book>>
 
-### EmprestimosRepository
-- [ ] emprestar: ({ livro_id, usuario_id, data_saida, data_retorno }) => Promise<void>
+### lendRepository
+- [ ] lend: ({ bookI,userId, outDate, returnDate }) => Promise<void>
 - [ ] e isteLivroISBNEmprestadoPendenteUsuario: ({usuario_id, livro_id}) => Promise<void>
 - [ ] buscarEmprestimoComLivroComUsuarioPorID: (id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
 - [ ] devolver: ({ emprestimo_id, data_devolucao }) => Promise<{data_retorno}>

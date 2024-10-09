@@ -3,14 +3,14 @@ const { AppError, Either } = require('../shared/errors');
 module.exports = function lendBookUseCase({ lendRepository }) {
   if (!lendRepository) throw new AppError(AppError.dependencyError);
 
-  return async function ({ useId, bookId, out_date, return_date }) {
-    const fields = [useId, bookId, out_date, return_date];
+  return async function ({ useId, bookId, outDate, returnDate }) {
+    const fields = [useId, bookId, outDate, returnDate];
 
     for (const field of fields) {
       if (!field) throw new AppError(AppError.missingParamsError);
     }
 
-    if (out_date.getTime() > return_date.getTime()) {
+    if (outDate.getTime() > returnDate.getTime()) {
       Either.left(Either.returnDateInvalid());
     }
 
@@ -20,7 +20,7 @@ module.exports = function lendBookUseCase({ lendRepository }) {
       Either.left(Either.userHasBookWithSameIsbn());
     }
 
-    await lendRepository.lend({ useId, bookId, out_date, return_date });
+    await lendRepository.lend({ useId, bookId, outDate, returnDate });
 
     return Either.right(null);
   };
