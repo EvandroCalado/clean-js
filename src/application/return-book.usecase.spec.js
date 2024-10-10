@@ -46,4 +46,10 @@ describe('returnBookUseCase', () => {
   it('should return AppError if lendRepository not provided', async () => {
     expect(() => returnBookUsecase({})).toThrow(new AppError(AppError.dependencyError));
   });
+
+  it('should return AppError if required field not provided', async () => {
+    const sut = returnBookUseCase({ lendRepository });
+
+    expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
+  });
 });
