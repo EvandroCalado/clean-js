@@ -5,6 +5,7 @@ const config = {
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
   verbose: true,
+  setupFilesAfterEnv: ['<rootDir>/src/infra/db/typeorm/setup.jest.js'],
 };
 
 module.exports = config;
