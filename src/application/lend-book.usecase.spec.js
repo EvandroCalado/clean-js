@@ -1,4 +1,4 @@
-const { Either } = require('../shared/errors');
+const { Either, AppError } = require('../shared/errors');
 const lendBookUsecase = require('./lend-book.usecase');
 
 describe('lendBookUseCase', () => {
@@ -56,5 +56,9 @@ describe('lendBookUseCase', () => {
       bookId: lendBookDTO.bookId,
     });
     expect(lendRepository.userHasBookWithSameIsbn).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return a AppError if lendRepository not provided', async () => {
+    expect(() => lendBookUsecase({})).toThrow(new AppError(AppError.dependencyError));
   });
 });
