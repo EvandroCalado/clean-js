@@ -4,9 +4,9 @@
 
 
 ## Dados
-- Usuario: [nome_completo, CPF, telefone, endereco, email]
-- Livro: [nome, quantidade, autor, genero, ISBN]
-- Emprestimo: [usuario_id, livro_id, data_retorno, data_devolucao, data_saida]
+- User: [name, cpf, phone, address, email]
+- Book: [name, quantity, author, genre, isbn]
+- Lend: [userId, bookId, returnDate, returnedDate, outDate]
 
 ### UseCases (Regras de negócio)
 - [x] Cadastrar um novo usuário
@@ -30,7 +30,7 @@
 - [x] Devolver o livro emprestado sem multa
 - [x] Caso o usuário tenha atrasado, será gerada uma multa fixa de R$ 10,00
 
-- [ ] Mostrar todos os empréstimos pendentes, com o nome do livro, nome do usuário, CPF, data de saída e data de retorno. Ordenados pela data de retorno mais antiga
+- [x] Mostrar todos os empréstimos pendentes, com o nome do livro, nome do usuário, CPF, data de saída e data de retorno. Ordenados pela data de retorno mais antiga
 
 ## Estruturas
 
@@ -49,4 +49,4 @@
 - [x] userHasBookWithSameIsbn: ({userId, bookId}) => Promise<void>
 - [x] findLendBookById: (lendId) => Promise<Lend & {book: {name}, user: {name, CPF, email}}>
 - [x] return: ({ lendID, returnedDate }) => Promise<{returnDate}>
-- [ ] buscarPendentesComLivroComUsuario: () => Promise<Emprestimos: {data_saida, data_retorno & Livro: {nome}, Usuario : {nome_completo, CPF}}>
+- [x] findPendingLends: () => Promise<Lends: {outDate, returnDate & book: {name}, user : {name, cpf}}>
