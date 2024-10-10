@@ -39,10 +39,10 @@ describe('lendBookUseCase', () => {
     expect(lendRepository.lend).toHaveBeenCalledWith(lendBookDTO);
     expect(lendRepository.lend).toHaveBeenCalledTimes(1);
     expect(emailService.sendLendBookEmail).toHaveBeenCalledWith({
-      userName: 'valid_name',
+      user: 'valid_name',
       cpf: 'valid_cpf',
       email: 'valid_email',
-      bookName: 'valid_bookName',
+      book: 'valid_bookName',
       outDate: lendBookDTO.outDate,
       returnDate: lendBookDTO.returnDate,
     });

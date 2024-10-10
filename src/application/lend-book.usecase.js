@@ -25,10 +25,10 @@ module.exports = function lendBookUseCase({ lendRepository, emailService }) {
     const { user, book } = await lendRepository.findLendBookById(lendId);
 
     await emailService.sendLendBookEmail({
-      userName: user.name,
+      user: user.name,
       cpf: user.cpf,
       email: user.email,
-      bookName: book.name,
+      book: book.name,
       outDate,
       returnDate,
     });
