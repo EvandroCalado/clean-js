@@ -27,8 +27,8 @@
 - [x] Um usuário pode estar com mais de um livro com ISBN diferentes ao mesmo tempo
 - [x] Ao cadastrar um empréstimo, será enviado um email automaticamente informando o nome do livro, nome do usuário, CPF, a data de saída e a data de retorno
 
-- [ ] Devolver o livro emprestado sem multa
-- [ ] Caso o usuário tenha atrasado, será gerada uma multa fixa de R$ 10,00
+- [x] Devolver o livro emprestado sem multa
+- [x] Caso o usuário tenha atrasado, será gerada uma multa fixa de R$ 10,00
 
 - [ ] Mostrar todos os empréstimos pendentes, com o nome do livro, nome do usuário, CPF, data de saída e data de retorno. Ordenados pela data de retorno mais antiga
 
@@ -38,8 +38,6 @@
 - [x] register: ({name, cpf, phone, address, email}) => Promise<void>
 - [x] findByCpf: (cpf) => Promise<User | null>
 - [x] findByEmail: (email) => Promise<User | null>
-- [ ] e istePorCPF: (CPF) => Promise<boolean>
-- [ ] e istePorEmail: (email) => Promise<boolean>
 
 ### bookRepository
 - [x] register: ({ nome, quantidade, autor, genero, isbn}) => Promise<void>
@@ -49,6 +47,6 @@
 ### lendRepository
 - [x] lend: ({ bookI,userId, outDate, returnDate }) => Promise<void>
 - [x] userHasBookWithSameIsbn: ({userId, bookId}) => Promise<void>
-- [ ] findLendBookById: (lendId) => Promise<Lend & {book: {name}, user: {name, CPF, email}}>
-- [ ] devolver: ({ emprestimo_id, data_devolucao }) => Promise<{data_retorno}>
+- [x] findLendBookById: (lendId) => Promise<Lend & {book: {name}, user: {name, CPF, email}}>
+- [x] return: ({ lendID, returnedDate }) => Promise<{returnDate}>
 - [ ] buscarPendentesComLivroComUsuario: () => Promise<Emprestimos: {data_saida, data_retorno & Livro: {nome}, Usuario : {nome_completo, CPF}}>
