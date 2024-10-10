@@ -1,3 +1,5 @@
+const { AppError } = require('../shared/errors');
+const returnBookUsecase = require('./return-book.usecase');
 const returnBookUseCase = require('./return-book.usecase');
 
 describe('returnBookUseCase', () => {
@@ -39,5 +41,9 @@ describe('returnBookUseCase', () => {
     expect(output.right).toBe('Late fee: $10.00');
     expect(lendRepository.return).toHaveBeenCalledWith(returnBookDTO);
     expect(lendRepository.return).toHaveBeenCalledTimes(1);
+  });
+
+  it('should return AppError if lendRepository not provided', async () => {
+    expect(() => returnBookUsecase({})).toThrow(new AppError(AppError.dependencyError));
   });
 });
