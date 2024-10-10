@@ -1,3 +1,4 @@
+const { AppError } = require('../../shared/errors');
 const lendEntity = require('./lend.entity');
 
 describe('lendEntity', () => {
@@ -17,5 +18,9 @@ describe('lendEntity', () => {
     });
 
     expect(result).toBe('Late fee: $10.00');
+  });
+
+  it('should throw AppError if all required fields not provided', () => {
+    expect(() => lendEntity.calculateLateFee({})).toThrow(new AppError(AppError.missingParamsError));
   });
 });
