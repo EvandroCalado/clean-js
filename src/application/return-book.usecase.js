@@ -1,6 +1,8 @@
-const { Either } = require('../shared/errors');
+const { Either, AppError } = require('../shared/errors');
 
 module.exports = function returnBookUseCase({ lendRepository }) {
+  if (!lendRepository) throw new AppError(AppError.dependencyError);
+
   return async function ({ lendId, returnedDate }) {
     const { returnDate } = await lendRepository.return({ lendId, returnedDate });
 
