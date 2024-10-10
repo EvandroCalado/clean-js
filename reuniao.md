@@ -25,7 +25,7 @@
 - [x] A data de retorno não pode ser menor que a data de saída
 - [x] Um usuário não pode estar com mais de um livro com o mesmo ISBN ao mesmo tempo
 - [x] Um usuário pode estar com mais de um livro com ISBN diferentes ao mesmo tempo
-- [ ] Ao cadastrar um empréstimo, será enviado um email automaticamente informando o nome do livro, nome do usuário, CPF, a data de saída e a data de retorno
+- [x] Ao cadastrar um empréstimo, será enviado um email automaticamente informando o nome do livro, nome do usuário, CPF, a data de saída e a data de retorno
 
 - [ ] Devolver o livro emprestado sem multa
 - [ ] Caso o usuário tenha atrasado, será gerada uma multa fixa de R$ 10,00
@@ -49,6 +49,6 @@
 ### lendRepository
 - [x] lend: ({ bookI,userId, outDate, returnDate }) => Promise<void>
 - [x] userHasBookWithSameIsbn: ({userId, bookId}) => Promise<void>
-- [ ] buscarEmprestimoComLivroComUsuarioPorID: (id) => Promise<Emprestimo & {Livro: {nome}, Usuario: {nome_completo, CPF, email}}>
+- [ ] findLendBookById: (lendId) => Promise<Lend & {book: {name}, user: {name, CPF, email}}>
 - [ ] devolver: ({ emprestimo_id, data_devolucao }) => Promise<{data_retorno}>
 - [ ] buscarPendentesComLivroComUsuario: () => Promise<Emprestimos: {data_saida, data_retorno & Livro: {nome}, Usuario : {nome_completo, CPF}}>
