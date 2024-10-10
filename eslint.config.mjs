@@ -1,5 +1,4 @@
 import pluginJs from '@eslint/js';
-import { environments } from 'eslint-plugin-prettier';
 import prettier from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 
