@@ -4,6 +4,10 @@ module.exports = function returnBookUseCase({ lendRepository }) {
   if (!lendRepository) throw new AppError(AppError.dependencyError);
 
   return async function ({ lendId, returnedDate }) {
+    if (!lendId || !returnedDate) {
+      throw new AppError(AppError.missingParamsError);
+    }
+
     const { returnDate } = await lendRepository.return({ lendId, returnedDate });
 
     const verifyReturnDate = new Date(returnDate).getTime() < new Date(returnedDate).getTime();
