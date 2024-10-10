@@ -1,3 +1,4 @@
+const lendEntity = require('../enterprise/entities/lend.entity');
 const { Either, AppError } = require('../shared/errors');
 
 module.exports = function returnBookUseCase({ lendRepository }) {
@@ -10,8 +11,7 @@ module.exports = function returnBookUseCase({ lendRepository }) {
 
     const { returnDate } = await lendRepository.return({ lendId, returnedDate });
 
-    const verifyReturnDate = new Date(returnDate).getTime() < new Date(returnedDate).getTime();
-    const verifyLateFee = verifyReturnDate ? 'Late fee: $10.00' : 'Late fee: $0.00';
+    const verifyLateFee = lendEntity.calculateLateFee({ returnDate, returnedDate });
 
     return Either.right(verifyLateFee);
   };
