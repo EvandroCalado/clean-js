@@ -5,9 +5,26 @@ describe('lendBookUseCase', () => {
   const lendRepository = {
     lend: jest.fn(),
     userHasBookWithSameIsbn: jest.fn(),
+    findLendBookById: jest.fn(),
+  };
+
+  const emailService = {
+    sendLendBookEmail: jest.fn(),
   };
 
   it('should lend a book', async () => {
+    lendRepository.lend.mockResolvedValue('valid_lendId');
+    lendRepository.findLendBookById.mockResolvedValue({
+      user: {
+        name: 'valid_name',
+        cpf: 'valid_cpf',
+        email: 'valid_email',
+      },
+      book: {
+        name: 'valid_bookName',
+      },
+    });
+
     const lendBookDTO = {
       useId: 'valid_useId',
       bookId: 'valid_BookId',
@@ -15,12 +32,20 @@ describe('lendBookUseCase', () => {
       returnDate: new Date('2024-10-09'),
     };
 
-    const sut = lendBookUsecase({ lendRepository });
+    const sut = lendBookUsecase({ lendRepository, emailService });
     const output = await sut(lendBookDTO);
 
     expect(output.right).toBeNull();
     expect(lendRepository.lend).toHaveBeenCalledWith(lendBookDTO);
     expect(lendRepository.lend).toHaveBeenCalledTimes(1);
+    expect(emailService.sendLendBookEmail).toHaveBeenCalledWith({
+      userName: 'valid_name',
+      cpf: 'valid_cpf',
+      email: 'valid_email',
+      bookName: 'valid_bookName',
+      outDate: lendBookDTO.outDate,
+      returnDate: lendBookDTO.returnDate,
+    });
   });
 
   it('should a Either.left if returnDate to be before outDate', async () => {
@@ -31,7 +56,7 @@ describe('lendBookUseCase', () => {
       returnDate: new Date('2024-10-08'),
     };
 
-    const sut = lendBookUsecase({ lendRepository });
+    const sut = lendBookUsecase({ lendRepository, emailService });
     const output = await sut(lendBookDTO);
 
     expect(output.left).toEqual(Either.returnDateInvalid);
@@ -47,7 +72,7 @@ describe('lendBookUseCase', () => {
       returnDate: new Date('2024-10-09'),
     };
 
-    const sut = lendBookUsecase({ lendRepository });
+    const sut = lendBookUsecase({ lendRepository, emailService });
     const output = await sut(lendBookDTO);
 
     expect(output.left).toEqual(Either.userHasBookWithSameIsbn);
@@ -63,7 +88,7 @@ describe('lendBookUseCase', () => {
   });
 
   it('should return a AppError if all params not provided', async () => {
-    const sut = lendBookUsecase({ lendRepository });
+    const sut = lendBookUsecase({ lendRepository, emailService });
 
     expect(() => sut({})).rejects.toThrow(new AppError(AppError.missingParamsError));
   });
