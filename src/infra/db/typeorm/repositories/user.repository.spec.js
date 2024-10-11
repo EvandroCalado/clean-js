@@ -48,4 +48,12 @@ describe('userRepository', () => {
 
     expect(existsByCpf).toBe(true);
   });
+
+  it('should return false if exists a user with valid cpf', async () => {
+    await typeormUserRepository.save(userDTO);
+
+    const existsByCpf = await sut.existsByCpf('invalid_cpf');
+
+    expect(existsByCpf).toBe(false);
+  });
 });
