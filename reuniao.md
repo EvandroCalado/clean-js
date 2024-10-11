@@ -52,3 +52,4 @@
 - [x] findLendBookById: (lendId) => Promise<Lend & {book: {name}, user: {name, CPF, email}}>
 - [x] return: ({ lendID, returnedDate }) => Promise<{returnDate}>
 - [x] findPendingLends: () => Promise<Lends: {outDate, returnDate & book: {name}, user : {name, cpf}}>
+****
