@@ -36,4 +36,12 @@ describe('userRepository', () => {
     expect(findByCpfRegistered.id).toBeDefined();
     expect(findByCpfRegistered.cpf).toBe('new_valid_cpf');
   });
+
+  it('should return null if cpf is not registered', async () => {
+    const sut = userRepository();
+
+    const findByCpfRegistered = await sut.findByCpf('not_registered_cpf');
+
+    expect(findByCpfRegistered).toBeNull();
+  });
 });
