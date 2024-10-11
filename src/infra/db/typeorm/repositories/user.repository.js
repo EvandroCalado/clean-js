@@ -19,10 +19,17 @@ const userRepository = () => {
     return !!user;
   };
 
+  const existsByEmail = async (email) => {
+    const user = await typeormUserRepository.findOne({ where: { email } });
+
+    return !!user;
+  };
+
   return {
     register,
     findByCpf,
     existsByCpf,
+    existsByEmail,
   };
 };
 
