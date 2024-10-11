@@ -13,9 +13,16 @@ const userRepository = () => {
     return user;
   };
 
+  const existsByCpf = async (cpf) => {
+    const user = await typeormUserRepository.findOne({ where: { cpf } });
+
+    return !!user;
+  };
+
   return {
     register,
     findByCpf,
+    existsByCpf,
   };
 };
 
