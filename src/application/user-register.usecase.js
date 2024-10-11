@@ -14,7 +14,7 @@ module.exports = function userRegisterUseCase({ userRepository }) {
       }
     }
 
-    const cpfExists = await userRepository.findByCpf(cpf);
+    const cpfExists = await userRepository.existsByCpf(cpf);
 
     if (cpfExists) return Either.left(Either.valueRegistered('CPF'));
 
