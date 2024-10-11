@@ -40,7 +40,6 @@
 - [x] existsByICpf: (cpf) => Promise<boolean>
 - [x] findByEmail: (email) => Promise<User | null>
 - [x] existsByIEmail: (email) => Promise<boolean>
-- [ ] 
 
 ### bookRepository
 - [x] register: ({ nome, quantidade, autor, genero, isbn}) => Promise<void>
