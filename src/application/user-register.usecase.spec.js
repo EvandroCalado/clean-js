@@ -4,9 +4,8 @@ const userRegisterUseCase = require('./user-register.usecase');
 describe('userRegisterUseCase', () => {
   const userRepository = {
     register: jest.fn(),
-    findByCpf: jest.fn(),
     existsByCpf: jest.fn(),
-    findByEmail: jest.fn(),
+    existsByEmail: jest.fn(),
   };
 
   it('should register a user', async () => {
@@ -58,7 +57,7 @@ describe('userRegisterUseCase', () => {
 
   it('should return a Either.left if exists email registered', async () => {
     userRepository.existsByCpf.mockResolvedValue(false);
-    userRepository.findByEmail.mockResolvedValue(true);
+    userRepository.existsByEmail.mockResolvedValue(true);
 
     const userDTO = {
       name: 'valid_name',
@@ -73,7 +72,7 @@ describe('userRegisterUseCase', () => {
 
     expect(output.right).toBeNull();
     expect(output.left).toEqual(Either.valueRegistered('Email'));
-    expect(userRepository.findByEmail).toHaveBeenCalledWith(userDTO.email);
-    expect(userRepository.findByEmail).toHaveBeenCalledTimes(1);
+    expect(userRepository.existsByEmail).toHaveBeenCalledWith(userDTO.email);
+    expect(userRepository.existsByEmail).toHaveBeenCalledTimes(1);
   });
 });

@@ -18,7 +18,7 @@ module.exports = function userRegisterUseCase({ userRepository }) {
 
     if (cpfExists) return Either.left(Either.valueRegistered('CPF'));
 
-    const emailExists = await userRepository.findByEmail(email);
+    const emailExists = await userRepository.existsByEmail(email);
 
     if (emailExists) return Either.left(Either.valueRegistered('Email'));
 
