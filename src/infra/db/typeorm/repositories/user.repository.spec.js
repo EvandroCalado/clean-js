@@ -56,4 +56,12 @@ describe('userRepository', () => {
 
     expect(existsByCpf).toBe(false);
   });
+
+  it('should return true if exists a user with valid email', async () => {
+    await typeormUserRepository.save(userDTO);
+
+    const existsByEmail = await sut.existsByEmail('valid_email');
+
+    expect(existsByEmail).toBe(true);
+  });
 });
