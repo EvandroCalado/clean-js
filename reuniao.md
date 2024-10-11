@@ -37,11 +37,12 @@
 ### userRepository
 - [x] register: ({name, cpf, phone, address, email}) => Promise<void>
 - [x] findByCpf: (cpf) => Promise<User | null>
+- [x] existsByICpf: (cpf) => Promise<boolean>
 - [x] findByEmail: (email) => Promise<User | null>
 
 ### bookRepository
 - [x] register: ({ nome, quantidade, autor, genero, isbn}) => Promise<void>
-- [x] fingByIsbn: (isbn) => Promise<boolean>
+- [x] fingByIsbn: (isbn) => Promise<use | null>
 - [x] findBookByNameOrIsbn: (valor) => Promise<array<book>>
 
 ### lendRepository
