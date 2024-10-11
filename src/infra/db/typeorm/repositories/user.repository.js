@@ -7,8 +7,15 @@ const userRepository = () => {
     await typeormUserRepository.save({ name, cpf, phone, address, email });
   };
 
+  const findByCpf = async (cpf) => {
+    const user = await typeormUserRepository.findOne({ where: { cpf } });
+
+    return user;
+  };
+
   return {
     register,
+    findByCpf,
   };
 };
 
