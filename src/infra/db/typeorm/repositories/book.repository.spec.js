@@ -54,4 +54,11 @@ describe('bookRepository', () => {
     expect(findByIsbnOrName).toHaveLength(1);
     expect(findByIsbnOrName[0].isbn).toBe('valid_isbn');
   });
+
+  it('should return empty array of books if finded a book with invalid name or invalid isbn', async () => {
+    const findByIsbnOrName = await sut.findByNameOrIsbn('invalid_value');
+
+    expect(findByIsbnOrName).toEqual([]);
+    expect(findByIsbnOrName).toHaveLength(0);
+  });
 });
