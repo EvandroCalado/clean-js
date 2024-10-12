@@ -24,4 +24,11 @@ describe('bookRepository', () => {
 
     expect(bookRegistered).toBeUndefined();
   });
+
+  it('should return true if exists a book with valid isbn', async () => {
+    await typeormBookRepository.save(bookDTO);
+    const existsByIsbn = await sut.existsByIsbn('valid_isbn');
+
+    expect(existsByIsbn).toBe(true);
+  });
 });
