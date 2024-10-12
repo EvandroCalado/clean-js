@@ -44,6 +44,7 @@
 ### bookRepository
 - [x] register: ({ nome, quantidade, autor, genero, isbn}) => Promise<void>
 - [x] fingByIsbn: (isbn) => Promise<use | null>
+- [x] existsByIsbn: (isbn) => Promise<boolean>
 - [x] findBookByNameOrIsbn: (valor) => Promise<array<book>>
 
 ### lendRepository
