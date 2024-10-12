@@ -4,7 +4,7 @@ const bookRegisterUseCase = require('./book-register.usecase');
 describe('bookRegisterUseCase', () => {
   const bookRepository = {
     register: jest.fn(),
-    findByIsbn: jest.fn(),
+    existsByIsbn: jest.fn(),
   };
 
   it('should register a book', async () => {
@@ -35,7 +35,7 @@ describe('bookRegisterUseCase', () => {
   });
 
   it('should return a Either.left if exists isbn registered', async () => {
-    bookRepository.findByIsbn.mockResolvedValue(true);
+    bookRepository.existsByIsbn.mockResolvedValue(true);
 
     const bookDTO = {
       name: 'valid_name',
@@ -49,7 +49,7 @@ describe('bookRegisterUseCase', () => {
     const output = await sut(bookDTO);
 
     expect(output.left).toEqual(Either.valueRegistered('isbn'));
-    expect(bookRepository.findByIsbn).toHaveBeenCalledWith(bookDTO.isbn);
-    expect(bookRepository.findByIsbn).toHaveBeenCalledTimes(1);
+    expect(bookRepository.existsByIsbn).toHaveBeenCalledWith(bookDTO.isbn);
+    expect(bookRepository.existsByIsbn).toHaveBeenCalledTimes(1);
   });
 });
