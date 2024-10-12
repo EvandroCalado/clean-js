@@ -38,4 +38,20 @@ describe('bookRepository', () => {
 
     expect(existsByIsbn).toBe(false);
   });
+
+  it('should return a book if finded a book with valid name', async () => {
+    await typeormBookRepository.save(bookDTO);
+    const findByIsbnOrName = await sut.findByNameOrIsbn('valid_name');
+
+    expect(findByIsbnOrName).toHaveLength(1);
+    expect(findByIsbnOrName[0].name).toBe('valid_name');
+  });
+
+  it('should return a book if finded a book with valid isbn', async () => {
+    await typeormBookRepository.save(bookDTO);
+    const findByIsbnOrName = await sut.findByNameOrIsbn('valid_isbn');
+
+    expect(findByIsbnOrName).toHaveLength(1);
+    expect(findByIsbnOrName[0].isbn).toBe('valid_isbn');
+  });
 });
