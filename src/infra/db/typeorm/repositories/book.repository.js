@@ -1,3 +1,4 @@
+const { Like } = require('typeorm');
 const { typeormServer } = require('../setup');
 
 const typeormBookRepository = typeormServer.getRepository('Book');
@@ -13,9 +14,16 @@ const bookRepository = () => {
     return !!book;
   };
 
+  const findByNameOrIsbn = async (value) => {
+    const book = await typeormBookRepository.find({ where: [{ name: Like(`%${value}`) }, { isbn: value }] });
+
+    return book;
+  };
+
   return {
     register,
     existsByIsbn,
+    findByNameOrIsbn,
   };
 };
 
